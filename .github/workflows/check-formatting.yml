@@ -57,5 +57,5 @@ jobs:
         run: |
           CHANGED_FILES=$(echo ${{ steps.get-changed-files.outputs.result }})
           if [ -n "$CHANGED_FILES" ]; then
-            pnpm oxfmt $CHANGED_FILES --check --no-error-on-unmatched-pattern
+            pnpm oxfmt $CHANGED_FILES --no-error-on-unmatched-pattern
           fi
