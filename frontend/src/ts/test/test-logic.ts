@@ -1138,8 +1138,9 @@ export async function finish(difficultyFailed = false): Promise<void> {
   );
   Result.updateTodayTracker();
 
-  let savingResultPromise: ReturnType<typeof saveResult> =
-    Promise.resolve(null);
+  let savingResultPromise:
+    | ReturnType<typeof saveResult>
+    | Promise<boolean> = Promise.resolve(null);
   const user = getAuthenticatedUser();
   if (user !== null) {
     // logged in

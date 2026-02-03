@@ -26,7 +26,7 @@ export function saveSnapshotToLocalStorage(snapshot: Snapshot): void {
 export function loadSnapshotFromLocalStorage(): Snapshot | null {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (!stored) return null;
+    if (stored === null || stored === "") return null;
 
     const parsed = JSON.parse(stored) as StorageSnapshot;
 
@@ -75,7 +75,7 @@ export function initializeLocalSnapshot(name?: string): Snapshot {
   }
 
   const newSnapshot = getDefaultSnapshot();
-  if (name) {
+  if (name !== undefined && name !== null && name !== "") {
     newSnapshot.name = name;
   }
 
@@ -86,7 +86,7 @@ export function initializeLocalSnapshot(name?: string): Snapshot {
 export function getLastSavedTimestamp(): number | null {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (!stored) return null;
+    if (stored === null || stored === "") return null;
 
     const parsed = JSON.parse(stored) as StorageSnapshot;
     return parsed.lastSaved;
