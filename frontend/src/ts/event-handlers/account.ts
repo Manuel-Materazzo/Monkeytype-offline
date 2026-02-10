@@ -1,7 +1,6 @@
 import * as PbTablesModal from "../modals/pb-tables";
 import * as EditProfileModal from "../modals/edit-profile";
 import { getSnapshot } from "../db";
-import { isAuthenticated } from "../firebase";
 import * as Notifications from "../elements/notifications";
 import * as EditResultTagsModal from "../modals/edit-result-tags";
 import * as AddFilterPresetModal from "../modals/new-filter-preset";
@@ -20,10 +19,6 @@ accountPage?.onChild("click", ".pbsWords .showAllButton", () => {
 });
 
 accountPage?.onChild("click", ".editProfileButton", () => {
-  if (!isAuthenticated()) {
-    Notifications.add("You must be logged in to edit your profile", 0);
-    return;
-  }
   const snapshot = getSnapshot();
   if (!snapshot) {
     Notifications.add(

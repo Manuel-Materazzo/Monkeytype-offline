@@ -1,10 +1,7 @@
-import Ape from "../ape";
 import { getHTMLById } from "../controllers/badge-controller";
 import * as DB from "../db";
 
-import { showLoaderBar, hideLoaderBar } from "../signals/loader-bar";
 import * as Notifications from "../elements/notifications";
-import * as ConnectionState from "../states/connection";
 import AnimatedModal from "../utils/animated-modal";
 import * as Profile from "../elements/profile";
 import { CharacterCounter } from "../elements/character-counter";
@@ -19,13 +16,6 @@ import { InputIndicator } from "../elements/input-indicator";
 import { ElementWithUtils, qsr } from "../utils/dom";
 
 export function show(): void {
-  if (!ConnectionState.get()) {
-    Notifications.add("You are offline", 0, {
-      duration: 2,
-    });
-    return;
-  }
-
   void modal.show({
     beforeAnimation: async () => {
       hydrateInputs();
@@ -150,7 +140,6 @@ async function updateProfile(): Promise<void> {
   if (!snapshot) return;
   const updates = buildUpdatesFromInputs();
 
-  // check for length resctrictions before sending server requests
   const githubLengthLimit = 39;
   if (
     updates.socialProfiles?.github !== undefined &&
@@ -175,21 +164,7 @@ async function updateProfile(): Promise<void> {
     return;
   }
 
-  showLoaderBar();
-  const response = await Ape.users.updateProfile({
-    body: {
-      ...updates,
-      selectedBadgeId: currentSelectedBadgeId,
-    },
-  });
-  hideLoaderBar();
-
-  if (response.status !== 200) {
-    Notifications.add("Failed to update profile", -1, { response });
-    return;
-  }
-
-  snapshot.details = response.body.data ?? updates;
+  snapshot.details = updates;
   snapshot.inventory?.badges.forEach((badge) => {
     if (badge.id === currentSelectedBadgeId) {
       badge.selected = true;
@@ -198,6 +173,7 @@ async function updateProfile(): Promise<void> {
     }
   });
 
+  DB.setSnapshot(snapshot);
   Notifications.add("Profile updated", 1);
 
   hide();
