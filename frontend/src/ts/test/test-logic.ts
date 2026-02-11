@@ -1138,9 +1138,8 @@ export async function finish(difficultyFailed = false): Promise<void> {
   );
   Result.updateTodayTracker();
 
-  let savingResultPromise:
-    | ReturnType<typeof saveResult>
-    | Promise<boolean> = Promise.resolve(null);
+  let savingResultPromise: ReturnType<typeof saveResult> | Promise<boolean> =
+    Promise.resolve(null);
   const user = getAuthenticatedUser();
   if (user !== null) {
     // logged in
@@ -1400,11 +1399,6 @@ async function saveResultLocally(
     DB.saveLocalResult(localDataToSave);
 
     qs("#retrySavingResultButton")?.hide();
-    Notifications.add("Result saved locally", 1, {
-      duration: 3,
-      important: true,
-    });
-
     AccountButton.loading(false);
     return true;
   } catch (e) {
