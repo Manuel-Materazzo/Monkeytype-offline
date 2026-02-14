@@ -1,7 +1,10 @@
 {
   "name": "@monkeytype/frontend",
+  "version": "1.0.0",
   "private": true,
+  "description": "Monkeytype offline frontend",
   "license": "GPL-3.0",
+  "author": "Manuel Materazzo",
   "type": "module",
   "main": "dist-electron/main.cjs",
   "scripts": {
@@ -21,9 +24,10 @@
     "dev-test": "concurrently --kill-others \"vite dev\" \"vitest\"",
     "tsc": "tsc",
     "docker": "docker compose -f docker/compose.dev.yml up",
-    "electron:compile": "tsc -p electron/tsconfig.json",
+    "electron:compile": "tsc -p electron/tsconfig.json && node scripts/rename-electron-cjs.cjs",
     "electron:dev": "vite build --mode electron && npm run electron:compile && electron dist-electron/main.cjs",
-    "electron:build": "vite build --mode electron && npm run electron:compile && electron-builder --config electron-builder.config.json"
+    "electron:build": "node --max-old-space-size=8192 node_modules/electron-builder/cli.js build --config electron-builder.config.json",
+    "electron:build:full": "vite build --mode electron && npm run electron:compile && npm run electron:build"
   },
   "dependencies": {
     "@date-fns/utc": "1.2.0",

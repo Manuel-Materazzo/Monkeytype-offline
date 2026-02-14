@@ -10,6 +10,7 @@ import * as PresetController from "../controllers/preset-controller";
 import * as ThemePicker from "../elements/settings/theme-picker";
 import * as Notifications from "../elements/notifications";
 import * as ImportExportSettingsModal from "../modals/import-export-settings";
+import * as SnapshotExportImport from "../utils/snapshot-export-import";
 import * as ConfigEvent from "../observables/config-event";
 import { getActivePage } from "../signals/core";
 import { PageWithUrlParams } from "./page";
@@ -808,6 +809,14 @@ qs(".pageSettings .section.presets")?.onChild(
 
 qs("#importSettingsButton")?.on("click", () => {
   ImportExportSettingsModal.show("import");
+});
+
+qs("#importUserDataButton")?.on("click", () => {
+  SnapshotExportImport.importUserData();
+});
+
+qs("#exportUserDataButton")?.on("click", () => {
+  SnapshotExportImport.exportUserData();
 });
 
 qs("#exportSettingsButton")?.on("click", () => {
