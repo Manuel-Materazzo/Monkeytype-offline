@@ -6,7 +6,8 @@
     "release",
     "coverage",
     ".firebase",
-    ".turbo"
+    ".turbo",
+    "scripts"
   ],
   "extends": [
     "../packages/oxlint-config/index.jsonc"
