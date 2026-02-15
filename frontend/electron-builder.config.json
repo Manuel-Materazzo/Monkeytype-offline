@@ -1,6 +1,7 @@
 {
   "appId": "com.monkeytype.desktop",
   "productName": "Monkeytype",
+  "npmRebuild": false,
   "directories": {
     "output": "release"
   },
