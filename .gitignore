@@ -133,4 +133,5 @@ frontend/.env.sentry-build-plugin
 
 # Electron
 frontend/dist-electron
+frontend/electron-app
 frontend/release

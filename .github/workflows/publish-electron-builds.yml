@@ -43,12 +43,20 @@ jobs:
         run: npm run electron:compile
         working-directory: frontend
 
-      - name: Remove node_modules before packaging
-        run: rm -rf node_modules ../node_modules
+      - name: Prepare electron app directory
         working-directory: frontend
+        run: |
+          mkdir -p electron-app
+          cp -r dist electron-app/
+          cp -r dist-electron electron-app/
+          node -e "
+            const p = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
+            const pkg = { name: p.name, version: p.version, main: p.main };
+            require('fs').writeFileSync('electron-app/package.json', JSON.stringify(pkg, null, 2));
+          "
 
       - name: Build Electron app
-        run: npx --yes electron-builder build --config electron-builder.config.json --${{ matrix.platform }} --publish never
+        run: node node_modules/electron-builder/cli.js build --config electron-builder.config.json --${{ matrix.platform }} --publish never
         working-directory: frontend
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

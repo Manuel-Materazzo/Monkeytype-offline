@@ -3,20 +3,21 @@
   "productName": "Monkeytype",
   "npmRebuild": false,
   "directories": {
+    "app": "electron-app",
     "output": "release"
   },
-  "files": ["dist/**/*", "dist-electron/**/*", "!**/node_modules/**"],
+  "files": ["dist/**/*", "dist-electron/**/*"],
   "win": {
     "target": ["nsis", "portable"],
-    "icon": "static/images/icons/general_icon_x512.png"
+    "icon": "../static/images/icons/general_icon_x512.png"
   },
   "mac": {
     "target": ["dmg"],
-    "icon": "static/images/icons/general_icon_x512.png"
+    "icon": "../static/images/icons/general_icon_x512.png"
   },
   "linux": {
     "target": ["AppImage", "deb"],
-    "icon": "static/images/icons/general_icon_x512.png"
+    "icon": "../static/images/icons/general_icon_x512.png"
   },
   "nsis": {
     "oneClick": false,
