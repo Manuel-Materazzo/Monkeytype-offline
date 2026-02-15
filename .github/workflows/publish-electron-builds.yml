@@ -40,10 +40,9 @@ jobs:
           VITE_MODE: electron
 
       - name: Build Electron app
-        run: npm run electron:build:full -- --${{ matrix.platform }} --publish never
+        run: npm run electron:compile && node --max-old-space-size=8192 node_modules/electron-builder/cli.js build --config electron-builder.config.json --${{ matrix.platform }} --publish never
         working-directory: frontend
         env:
-          NODE_OPTIONS: "--max-old-space-size=8192"
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifacts
