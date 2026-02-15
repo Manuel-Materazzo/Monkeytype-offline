@@ -11,11 +11,12 @@ permissions:
   pull-requests: write
 
 on:
-  pull_request:
-    branches: [master]
-    types: [opened, reopened, synchronize, ready_for_review]
-  push:
-    branches: [master]
+  workflow_dispatch:
+#  pull_request:
+#    branches: [master]
+#    types: [opened, reopened, synchronize, ready_for_review]
+#  push:
+#    branches: [master]
 
 concurrency:
   group: group-${{ github.ref }}-${{ github.workflow }}
