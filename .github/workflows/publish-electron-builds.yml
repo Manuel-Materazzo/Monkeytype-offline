@@ -39,6 +39,10 @@ jobs:
         env:
           VITE_MODE: electron
 
+      - name: Strip bundled dependencies for electron-builder
+        run: node -e "const p=JSON.parse(require('fs').readFileSync('package.json','utf8'));delete p.dependencies;require('fs').writeFileSync('package.json',JSON.stringify(p,null,2))"
+        working-directory: frontend
+
       - name: Build Electron app
         run: npm run electron:compile && node --max-old-space-size=8192 node_modules/electron-builder/cli.js build --config electron-builder.config.json --${{ matrix.platform }} --publish never
         working-directory: frontend
