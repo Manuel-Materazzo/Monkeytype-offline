@@ -56,7 +56,7 @@ jobs:
           "
 
       - name: Build Electron app
-        run: node node_modules/electron-builder/cli.js build --config electron-builder.config.js --${{ matrix.platform }} --publish never
+        run: node node_modules/electron-builder/cli.js build --config electron-builder.config.cjs --${{ matrix.platform }} --publish never
         working-directory: frontend
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
