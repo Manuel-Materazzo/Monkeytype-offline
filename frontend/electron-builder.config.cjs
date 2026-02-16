@@ -23,6 +23,8 @@ module.exports = {
   linux: {
     target: ["AppImage", "deb"],
     icon: "../static/images/icons/general_icon_x512.png",
+    maintainer: "Manuel Materazzo",
+    category: "Utility",
   },
   nsis: {
     oneClick: false,

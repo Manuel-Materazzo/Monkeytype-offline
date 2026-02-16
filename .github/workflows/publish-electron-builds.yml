@@ -51,7 +51,14 @@ jobs:
           cp -r dist-electron electron-app/
           node -e "
             const p = JSON.parse(require('fs').readFileSync('package.json', 'utf8'));
-            const pkg = { name: p.name, version: p.version, main: p.main };
+            const pkg = {
+              name: p.name,
+              version: p.version,
+              main: p.main,
+              description: p.description || 'Monkeytype offline desktop app',
+              author: p.author,
+              homepage: 'https://github.com/Manuel-Materazzo/Monkeytype-offline'
+            };
             require('fs').writeFileSync('electron-app/package.json', JSON.stringify(pkg, null, 2));
           "
 
